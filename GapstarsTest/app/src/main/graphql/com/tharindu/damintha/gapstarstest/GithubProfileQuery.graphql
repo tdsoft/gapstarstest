@@ -1,0 +1,74 @@
+query GithubProfile {
+    user(login: "JakeWharton") {
+        pinnedItems(first: 3, types: REPOSITORY) {
+            nodes {
+                ... on Repository {
+                    name
+                    description
+                    stargazerCount
+                    primaryLanguage {
+                        name
+                        id
+                        color
+                    }
+                    owner {
+                        id
+                        ... on User {
+                            id
+                            email
+                            name
+                            avatarUrl
+                        }
+                    }
+                }
+            }
+        }
+        starredRepositories(first: 10) {
+            nodes {
+                id
+                name
+                description
+                stargazerCount
+                primaryLanguage {
+                    name
+                    id
+                    color
+                }
+                owner {
+                    id
+                    ... on User {
+                        id
+                        email
+                        name
+                        avatarUrl
+                    }
+                }
+            }
+        }
+        topRepositories(first: 10, orderBy: {field: NAME, direction: ASC}) {
+            nodes {
+                id
+                name
+                description
+                stargazerCount
+                primaryLanguage {
+                    name
+                    id
+                    color
+                }
+                owner {
+                    id
+                    ... on User {
+                        id
+                        email
+                        name
+                        avatarUrl
+                    }
+                }
+            }
+        }
+        name
+        email
+        avatarUrl
+    }
+}
