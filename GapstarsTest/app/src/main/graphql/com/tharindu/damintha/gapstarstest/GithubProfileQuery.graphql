@@ -33,6 +33,7 @@ fragment RepositoryFragment on Repository {
     name
     description
     stargazerCount
+    url
     owner{
         login
         avatarUrl

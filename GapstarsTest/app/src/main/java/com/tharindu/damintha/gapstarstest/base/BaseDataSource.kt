@@ -15,7 +15,7 @@ abstract class BaseDataSource {
                 val body = response.data
                 if (body != null) return Result.success(body)
             }
-            return error(response.errors?.get(0)?.message?:"Something went wrong")
+            return error(response.errors?.get(0)?.message ?: "Something went wrong")
         } catch (e: Exception) {
             return error(e.message ?: e.toString())
         }

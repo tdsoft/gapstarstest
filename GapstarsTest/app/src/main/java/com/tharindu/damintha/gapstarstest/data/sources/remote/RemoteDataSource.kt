@@ -7,11 +7,18 @@ import com.tharindu.damintha.gapstarstest.base.BaseDataSource
 import com.tharindu.damintha.gapstarstest.data.sources.Result
 import javax.inject.Inject
 
-class RemoteDataSource @Inject constructor(private val apolloClient: ApolloClient) : BaseDataSource() {
+class RemoteDataSource @Inject constructor(private val apolloClient: ApolloClient) :
+    BaseDataSource() {
 
     suspend fun getProfileData(): Result<GithubProfileQuery.Data> {
-        return getResult{apolloClient
-            .query(GithubProfileQuery()).await()}
+        return getResult {
+            apolloClient
+                .query(GithubProfileQuery())
+                .await()
+        }
     }
 
+    fun clearCache() {
+        apolloClient.clearHttpCache()
+    }
 }

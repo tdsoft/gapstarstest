@@ -7,8 +7,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor(private val gtRepository: GTRepository,
-                                           private val savedStateHandle: SavedStateHandle
+class ProfileViewModel @Inject constructor(
+    private val gtRepository: GTRepository,
+    private val savedStateHandle: SavedStateHandle
 ) : BaseViewModel() {
     fun getProfile() = gtRepository.getProfileData()
+    fun clearCache() {
+        gtRepository.clearCache()
+    }
 }

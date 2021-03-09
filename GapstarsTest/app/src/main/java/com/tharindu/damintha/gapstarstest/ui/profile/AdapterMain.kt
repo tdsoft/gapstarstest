@@ -2,6 +2,7 @@ package com.tharindu.damintha.gapstarstest.ui.profil
 
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tharindu.damintha.gapstarstest.R
@@ -51,6 +52,10 @@ class AdapterMain(val list: List<RepositoryItem>) :
         BaseViewHolder(parent.inflate(R.layout.listitem_header)) {
         override fun bind(item: RepositoryItem) = with(itemView) {
             txtHeader.text = item.title
+
+            txtViewAll.setOnClickListener {
+                Toast.makeText(context, R.string.msg_not_yet_implmeneted, Toast.LENGTH_LONG).show()
+            }
         }
     }
 

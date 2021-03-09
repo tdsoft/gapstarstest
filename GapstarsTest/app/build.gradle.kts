@@ -16,7 +16,7 @@ android {
         minSdkVersion(16)
         targetSdkVersion(30)
         versionCode = 1
-        versionName  = "1.0"
+        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -63,7 +63,7 @@ dependencies {
 
     //Stetho
     implementation("com.facebook.stetho:stetho:1.5.1")
-    implementation ("com.facebook.stetho:stetho-okhttp3:1.5.1")
+    implementation("com.facebook.stetho:stetho-okhttp3:1.5.1")
 
 
     //live data
@@ -78,9 +78,13 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.3.0")
     implementation("androidx.activity:activity-ktx:1.2.0")
 
+    //Swipe refresh
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
+
     //Glide
     implementation("com.github.bumptech.glide:glide:4.12.0")
-    kapt ("com.github.bumptech.glide:compiler:4.12.0")
+    kapt("com.github.bumptech.glide:compiler:4.12.0")
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.31")
     implementation("androidx.core:core-ktx:1.3.2")

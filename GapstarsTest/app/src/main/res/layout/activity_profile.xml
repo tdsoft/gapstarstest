@@ -48,18 +48,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvRepositories"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
-            android:padding="16dp"
+            android:id="@+id/srRefreshList"
             android:paddingBottom="?attr/actionBarSize"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtFollowersCount" />
+            app:layout_constraintTop_toBottomOf="@+id/txtFollowersCount">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvRepositories"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="16dp" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <ImageView
             android:id="@+id/ivUserProfile"
@@ -104,9 +110,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="0"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             app:layout_constraintStart_toStartOf="@+id/txtEmail"
             app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
 
@@ -152,7 +158,7 @@
             android:id="@+id/mainDetailsGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:constraint_referenced_ids="rvRepositories,ivUserProfile,txtName,txtLoginName,txtFollowersCount,textView4,txtFollowingCount,textView6,txtEmail" />
+            app:constraint_referenced_ids="srRefreshList,ivUserProfile,txtName,txtLoginName,txtFollowersCount,textView4,txtFollowingCount,textView6,txtEmail" />
 
         <TextView
             android:id="@+id/txtEmail"
@@ -160,8 +166,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="email"
-            android:textStyle="bold"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/ivUserProfile"
             app:layout_constraintTop_toBottomOf="@+id/ivUserProfile" />
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tharindu.damintha.gapstarstest.R
 import com.tharindu.damintha.gapstarstest.common.inflate
 import com.tharindu.damintha.gapstarstest.common.loadImageUrl
+import com.tharindu.damintha.gapstarstest.common.openUrl
 import com.tharindu.damintha.gapstarstest.fragment.RepositoryFragment
 import kotlinx.android.synthetic.main.listitem_repo_verticle.view.*
 
@@ -22,8 +23,11 @@ class AdapterRepositories(val isHorizontal: Boolean, val list: List<RepositoryFr
             txtProjectName.text = item.name
             txtProjectDescription.text = item.description
             txtOwner.text = item.owner.login
-            ivProfileImage.loadImageUrl(item.owner.avatarUrl.toString())
+            ivProfileImage.loadImageUrl(item.owner.avatarUrl.toString(), true)
             txtStartGazerCount.text = item.stargazerCount.toString()
+            itemView.rootView.setOnClickListener {
+                item.url.toString().openUrl(context)
+            }
         }
     }
 
