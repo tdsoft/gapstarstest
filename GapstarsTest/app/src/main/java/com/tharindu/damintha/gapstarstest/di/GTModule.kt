@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.apollographql.apollo.ApolloClient
 import com.facebook.stetho.okhttp3.StethoInterceptor
+import com.tharindu.damintha.gapstarstest.utils.AuthorizationInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,13 +22,16 @@ object GTModule {
     @Singleton
     @Provides
     fun provideHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder().addNetworkInterceptor(StethoInterceptor()).build()
+        return OkHttpClient.Builder()
+            .addInterceptor(AuthorizationInterceptor())
+            .addNetworkInterceptor(StethoInterceptor())
+            .build()
     }
 
     @Singleton
     @Provides
-    fun provideRetrofit(client: OkHttpClient): ApolloClient {
-        return ApolloClient.builder().serverUrl("http://app.efficienteg.com/api/")
+    fun provideApollo(client: OkHttpClient): ApolloClient {
+        return ApolloClient.builder().serverUrl("https://api.github.com/graphql")
             .okHttpClient(client).build()
     }
 
@@ -35,13 +39,13 @@ object GTModule {
     @Singleton
     @Provides
     fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
-        return context.getSharedPreferences("EEGPref", Context.MODE_PRIVATE)
+        return context.getSharedPreferences("GapstarsPref", Context.MODE_PRIVATE)
     }
 
 //    @Singleton
 //    @Provides
-//    fun provideEEGDatabase(@ApplicationContext context: Context): EEGDatabase {
-//        return Room.databaseBuilder(context, EEGDatabase::class.java, "eegdatabase.db")
+//    fun provideEEGDatabase(@ApplicationContext context: Context): GTDatabase {
+//        return Room.databaseBuilder(context, EEGDatabase::class.java, "gapstarts.db")
 //            .fallbackToDestructiveMigration()
 //            .build()
 //    }

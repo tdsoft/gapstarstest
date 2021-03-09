@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Gapstars Test</string>
+    <string name="profile_image">Profile image</string>
+    <string name="profile">Profile</string>
+    <string name="following">Following</string>
+    <string name="followers">Followers</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="view_all"><u>View All</u></string>
+</resources>

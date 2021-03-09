@@ -1,4 +1,0 @@
-package com.tharindu.damintha.gapstarstest.data.sources.remote
-
-class APIService {
-}

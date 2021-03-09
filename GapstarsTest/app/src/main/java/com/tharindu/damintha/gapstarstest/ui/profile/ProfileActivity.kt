@@ -1,25 +1,91 @@
 package com.tharindu.damintha.gapstarstest.ui.profile
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.tharindu.damintha.gapstarstest.R
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import com.tharindu.damintha.gapstarstest.common.gone
+import com.tharindu.damintha.gapstarstest.common.loadImageUrl
+import com.tharindu.damintha.gapstarstest.common.show
+import com.tharindu.damintha.gapstarstest.data.sources.Result
+import com.tharindu.damintha.gapstarstest.ui.profil.AdapterMain
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_profile.*
 
+@AndroidEntryPoint
 class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
+
+        initUI()
     }
 
+    private fun initUI() {
+
+        setSupportActionBar(toolbar)
+        rvRepositories.layoutManager = LinearLayoutManager(this)
+    }
+
+    private val loginViewModel: ProfileViewModel by viewModels()
     override fun onResume() {
         super.onResume()
-        GlobalScope.launch {
-//            val response = apolloClient.query(GithubProfile()).await()
-//
-//            Log.d("LaunchList", "Success ${response?.data}")
-        }
+        loginViewModel.getProfile().observe(this, {
+            it?.let { result ->
+                when (result.status) {
+                    Result.Status.LOADING -> {
+                        progressBar.show()
+                        mainDetailsGroup.gone()
+                    }
+                    Result.Status.SUCCESS -> {
+                        progressBar.gone()
+                        mainDetailsGroup.show()
+                        result.data?.user?.let { user ->
+                            txtName.text = user.name
+                            txtLoginName.text = user.login
+                            txtEmail.text = user.email
+                            txtFollowersCount.text = user.followers.totalCount.toString()
+                            txtFollowingCount.text = user.following.totalCount.toString()
+                            ivUserProfile.loadImageUrl(user.avatarUrl.toString(), true)
+                        }
 
+                        val list = ArrayList<RepositoryItem>()
+                        list.add(RepositoryItem("Pinned", null, true, ListItemTypes.Header))
+                        val pinnedList =  result.data?.user?.pinnedItems?.nodes!!.filterNotNull().map { node ->
+                            node.fragments.repositoryFragment!!
+                        }
+                        list.add(RepositoryItem(null, pinnedList, true, ListItemTypes.VerticalRecycler))
+
+                        list.add(RepositoryItem("Top repositories", null, true, ListItemTypes.Header))
+                        val topRepositories =  result.data.user.topRepositories.nodes!!.filterNotNull().map { node ->
+                            node.fragments.repositoryFragment
+                        }
+                        list.add(RepositoryItem(null, topRepositories, true, ListItemTypes.HorizontalRecycler))
+
+                        list.add(RepositoryItem("Starred repositories", null, true, ListItemTypes.Header))
+                        val starredRepositories =  result.data.user.starredRepositories.nodes!!.filterNotNull().map { node ->
+                            node.fragments.repositoryFragment
+                        }
+                        list.add(RepositoryItem(null, starredRepositories, true, ListItemTypes.HorizontalRecycler))
+
+                        rvRepositories.adapter = AdapterMain(list)
+
+                    }
+                    else -> {
+                        progressBar.gone()
+                        mainDetailsGroup.gone()
+                        Toast.makeText(
+                            this@ProfileActivity,
+                            R.string.something_went_wrong,
+                            Toast.LENGTH_LONG
+                        )
+                            .show()
+                    }
+                }
+
+            }
+        })
     }
 }

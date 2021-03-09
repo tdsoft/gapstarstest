@@ -1,74 +1,48 @@
 query GithubProfile {
     user(login: "JakeWharton") {
-        pinnedItems(first: 3, types: REPOSITORY) {
-            nodes {
-                ... on Repository {
-                    name
-                    description
-                    stargazerCount
-                    primaryLanguage {
-                        name
-                        id
-                        color
-                    }
-                    owner {
-                        id
-                        ... on User {
-                            id
-                            email
-                            name
-                            avatarUrl
-                        }
-                    }
-                }
-            }
+        name
+        login
+        email
+        avatarUrl
+        following {
+            totalCount
         }
-        starredRepositories(first: 10) {
+        followers {
+            totalCount
+        }
+        pinnedItems(first: 3) {
             nodes {
-                id
-                name
-                description
-                stargazerCount
-                primaryLanguage {
-                    name
-                    id
-                    color
-                }
-                owner {
-                    id
-                    ... on User {
-                        id
-                        email
-                        name
-                        avatarUrl
-                    }
-                }
+                ...RepositoryFragment
             }
         }
         topRepositories(first: 10, orderBy: {field: NAME, direction: ASC}) {
             nodes {
-                id
-                name
-                description
-                stargazerCount
-                primaryLanguage {
-                    name
-                    id
-                    color
-                }
-                owner {
-                    id
-                    ... on User {
-                        id
-                        email
-                        name
-                        avatarUrl
-                    }
-                }
+                ...RepositoryFragment
             }
         }
-        name
-        email
+        starredRepositories(first: 10, orderBy: {field: STARRED_AT, direction: ASC}) {
+            nodes {
+                ...RepositoryFragment
+            }
+        }
+    }
+}
+
+fragment RepositoryFragment on Repository {
+    id
+    name
+    description
+    stargazerCount
+    owner{
+        login
         avatarUrl
     }
+    primaryLanguage {
+        ...PrimaryLanguageFragment
+    }
+}
+
+fragment PrimaryLanguageFragment on Language {
+    name
+    color
 }

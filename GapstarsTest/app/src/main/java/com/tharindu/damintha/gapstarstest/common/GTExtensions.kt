@@ -1,0 +1,37 @@
+package com.tharindu.damintha.gapstarstest.common
+
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.annotation.LayoutRes
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+
+fun ViewGroup.inflate(@LayoutRes layout: Int, attachToRoot: Boolean = false) =
+    LayoutInflater.from(context).inflate(layout, this, attachToRoot)!!
+
+fun ImageView.loadImageUrl(url: String, enableCircleCrop:Boolean = false) {
+    if (enableCircleCrop) {
+        Glide
+            .with(context)
+            .load(url)
+            .apply(RequestOptions().circleCrop())
+            .into(this)
+    } else {
+        Glide
+            .with(context)
+            .load(url)
+            .centerCrop()
+            .into(this)
+    }
+
+}
+
+fun View.gone() {
+    this.visibility = View.GONE
+}
+
+fun View.show() {
+    this.visibility = View.VISIBLE
+}
