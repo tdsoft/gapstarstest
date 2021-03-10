@@ -6,6 +6,6 @@
     <string name="followers">Followers</string>
     <string name="something_went_wrong">Something went wrong</string>
     <string name="view_all"><u>View All</u></string>
-    <string name="no_matching_app_found">No matching app found</string>
+    <string name="no_matching_app_found">No matching app found for opening the url</string>
     <string name="msg_not_yet_implmeneted">Not yet implemented</string>
 </resources>

@@ -59,11 +59,4 @@ object GTModule {
         return context.getSharedPreferences("GapstarsPref", Context.MODE_PRIVATE)
     }
 
-//    @Singleton
-//    @Provides
-//    fun provideEEGDatabase(@ApplicationContext context: Context): GTDatabase {
-//        return Room.databaseBuilder(context, EEGDatabase::class.java, "gapstarts.db")
-//            .fallbackToDestructiveMigration()
-//            .build()
-//    }
 }

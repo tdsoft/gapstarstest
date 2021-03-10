@@ -4,13 +4,14 @@ import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.coroutines.await
 import com.tharindu.damintha.gapstarstest.GithubProfileQuery
 import com.tharindu.damintha.gapstarstest.base.BaseDataSource
+import com.tharindu.damintha.gapstarstest.data.sources.IDataSource
 import com.tharindu.damintha.gapstarstest.data.sources.Result
 import javax.inject.Inject
 
-class RemoteDataSource @Inject constructor(private val apolloClient: ApolloClient) :
+class RemoteIDataSource @Inject constructor(private val apolloClient: ApolloClient) : IDataSource,
     BaseDataSource() {
 
-    suspend fun getProfileData(): Result<GithubProfileQuery.Data> {
+    override suspend fun getProfileData(): Result<GithubProfileQuery.Data> {
         return getResult {
             apolloClient
                 .query(GithubProfileQuery())
@@ -18,7 +19,7 @@ class RemoteDataSource @Inject constructor(private val apolloClient: ApolloClien
         }
     }
 
-    fun clearCache() {
+    override fun clearCache() {
         apolloClient.clearHttpCache()
     }
 }
