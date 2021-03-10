@@ -35,6 +35,7 @@ class ProfileActivity : AppCompatActivity() {
     private fun initUI() {
 
         setSupportActionBar(toolbar)
+        supportActionBar?.title = ""
         rvRepositories.layoutManager = LinearLayoutManager(this)
         srRefreshList.setOnRefreshListener {
             mainDetailsGroup.gone()

@@ -17,17 +17,18 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:gravity="center"
+            app:title=""
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
             <TextView
                 android:id="@+id/toolbar_title"
-                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/profile"
-                android:textColor="@color/black" />
+                />
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
